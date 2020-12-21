@@ -259,14 +259,7 @@ export default {
     width: 100%;
     height: auto;
 }
-.box-1{
-    height: calc(100vh - 100px);
-    position: relative;
-}
-.box-1-0-0{
-    height: calc(100vh - 100px);
-    background-color: #fff;
-}
+
 .box-1-0-0 img{
     width: 100%;
     height: 100%;
@@ -301,10 +294,10 @@ export default {
 }
 @supports (bottom: env(safe-area-inset-bottom)) {
     .box-1{
-        height: calc(100vh - 100px - env(safe-area-inset-bottom));
+        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
     }
     .box-1-0-0{
-        height: calc(100vh - 100px - env(safe-area-inset-bottom));
+        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
     }
 }
 </style>

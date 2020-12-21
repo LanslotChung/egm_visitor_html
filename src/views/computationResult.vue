@@ -190,7 +190,7 @@ export default {
     font-size: 16px;
     color:#fff;
     padding-left: 20px;
-    background-color: #169bd5;
+    background-color: #0072ff;
 }
 .box-1-1{
     text-align: center;

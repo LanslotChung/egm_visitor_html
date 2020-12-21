@@ -5,7 +5,7 @@
             <div>
                 <div class="box-1-1">
                     <van-icon name="arrow-left" color="#fff" class="arrow-left" @click="prevTitleFn" />
-                    <van-swipe  @change="contentChangeFn" ref="content">
+                    <van-swipe  @change="contentChangeFn" ref="content" :height="h">
                         <van-swipe-item v-for="(item,index) in familyList" :key="index">
                             <div class='cell'>
                                 <img class="box-1-1-1" :src="item.url" @click="previewImg" />
@@ -33,6 +33,7 @@ export default {
     },
     data() {
         return {
+            h:window.screen.height-126.5,
             initialSwipe:0,
             familyList:[],
             images:[],
@@ -127,7 +128,8 @@ export default {
 .box-1-1-1{
     display: block;
     width: 344px;
-    height: auto;
+    max-height: 100%;   
+    object-fit: cover;
 }
 .box-1-1-2,.box-1-1-3{
     position: absolute;
@@ -147,17 +149,17 @@ export default {
 .cell{
     display:table-cell; 
     vertical-align:middle;
-    height:calc(100vh - 120px)
+    height:calc(100vh - 126.5px)
 }
 @supports (bottom: env(safe-area-inset-bottom)) {
     .box-1{
-        height: calc(100vh - 100px - env(safe-area-inset-bottom));
+        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
     }
     .box-1-1{
-        height: calc(100vh - 120px - env(safe-area-inset-bottom));
+        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
     }
     .cell{
-        height:calc(100vh - 120px - env(safe-area-inset-bottom))
+        height:calc(100vh - 126.5px - env(safe-area-inset-bottom))
     }
 }
 </style>

@@ -25,7 +25,7 @@
     methods: {
       goBack() {
         console.log("点击了浏览器的返回按钮",window.goBackPathName);
-        if(!(window.goBackPathName == 'airview' || window.goBackPathName == 'hardcoverRoaming' || window.goBackPathName == 'computationResult')){
+        if(!(window.goBackPathName == 'airview' || window.goBackPathName == 'hardcoverRoaming' || window.goBackPathName == 'computationResult'||window.goBackPathName=='mainPage')){
           window.wx.miniProgram.reLaunch({
               url:'/pages/index/index'
           })

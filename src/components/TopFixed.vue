@@ -1,22 +1,21 @@
 <template>
     <div>
-        <div class="box-0"></div>
         <div class="box-1">
             <div class="box-1-0">
                 <img :src="adviserHeadPic" />
             </div>
             <div class="box-1-1">
                 <div class="box-1-1-0">{{adviserName}}</div>
-                <div class="box-1-1-1">{{adviserLevelName}}</div>
+                <div class="box-1-1-1"><img src="../assets/imgs/ico_jinpai.svg" />{{adviserLevelName}}</div>
             </div>
             <div class="box-1-2" style="display: none;">聊天</div>
             <div class="box-1-2 box-1-3">
                 <a :href="'tel:'+adviserMobile"></a>
-                <div class="box-1-2-0"><img src="../assets/imgs/ddh.png" /></div>
+                <div class="box-1-2-0"><img src="../assets/imgs/ico_dianhua1.svg" /></div>
                 <div class="box-1-2-1">打电话</div>
             </div>
             <div class="box-1-2 box-1-4" @click="openLocation">
-                <div class="box-1-2-0"><img src="../assets/imgs/dh.png" /></div>
+                <div class="box-1-2-0"><img src="../assets/imgs/ico_daohang.svg" /></div>
                 <div class="box-1-2-1">导航</div>
             </div>
         </div>
@@ -27,10 +26,10 @@
         name: 'TopFixed',
         data() {
             return {
-                adviserName:decodeURIComponent(window.parameters.adviserName),
-                adviserLevelName:decodeURIComponent(window.parameters.adviserLevelName),
-                adviserHeadPic:decodeURIComponent(window.parameters.adviserHeadPic),
-                adviserMobile:window.parameters.adviserMobile
+                adviserName:decodeURIComponent(window.indexInfo.adviserName),
+                adviserLevelName:decodeURIComponent(window.indexInfo.adviserLevelName),
+                adviserHeadPic:decodeURIComponent(window.indexInfo.adviserHeadPic),
+                adviserMobile:window.indexInfo.adviserMobile
             }
         },
         methods: {
@@ -60,13 +59,12 @@
     height: 50px;
 }
 .box-1{
-    height: 40px;
-    position: fixed;
+    height: 7%;
     top: 0;
     right: 0;
     left: 0;
     background-color: #fff;
-    padding:5px 10px;
+    padding:3% 4%;
     display: flex;
     align-items: center;
     z-index: 100;
@@ -88,22 +86,27 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-left: 10px;
+    padding-left: 2%;
 }
 .box-1-1-0{
     font-size: 14px;
     height: 18px;
     line-height: 18px;
+    font-weight: bold;
+    padding: 2%;
 }
 .box-1-1-1{
-    font-size: 12px;
-    height: 16px;
-    line-height: 16px;
+     font-size: 12px;
+    color:#222426; 
+    display: flex;
+}
+.box-1-1-1 img{
+    margin-right: 1%;
+        height: 100%;
 }
 .box-1-2{
-    width: 40px;
-    height: 40px;
-    font-size: 11px;
+    width: 13%;
+    font-size: 10px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -113,16 +116,23 @@
 .box-1-2-0{
     width: 20px;
     height: 20px;
+    background-color: #cce3ff;
+    border-radius: 50%;
+    padding: 9%;
 }
 .box-1-2-0 img{
     display: block;
     width: 100%;
     height: 100%;
 }
+.box-1-2-1{
+    width: 108%;
+    
+}
 .box-1-3{
-    border-right: 1px solid #e0e0e0;
-    margin-right: 4px;
-    padding-right: 10px;
+    
+    margin-right: 11%;
+  
     position: relative;
 }
 .box-1-3 a{
@@ -132,4 +142,5 @@
     bottom: 0;
     top: 0;
 }
+
 </style>

@@ -43,14 +43,14 @@ export default {
 </script>
 <style scoped>
 .box-1{
-    height: calc(100vh - 100px);
+    height: calc(100vh - 126.5px);
 }
 .box-1-0{
     height: 100%;
 }
 @supports (bottom: env(safe-area-inset-bottom)) {
     .box-1{
-        height: calc(100vh - 100px - env(safe-area-inset-bottom));
+        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
     }
 }
 </style>

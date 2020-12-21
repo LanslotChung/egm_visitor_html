@@ -2,7 +2,7 @@
     <div>
         <TopFixed />
         <div class="box-1">
-            <van-swipe style="height: 100%;" vertical :show-indicators="false" @change="contentChangeFn" ref="content" v-if="data">
+            <van-swipe :height="h" vertical :show-indicators="false" @change="contentChangeFn" ref="content" v-if="data">
                 <van-swipe-item v-for="(item,index) in data.maps" :key="index"  >
                     <img :src="item.url">
                 </van-swipe-item>
@@ -30,6 +30,7 @@ export default {
     },
     data() {
         return {
+            h:window.screen.height-126.5,
             data:null,
             initialSwipe:0,
         }
@@ -64,11 +65,11 @@ export default {
 </script>
 <style scoped>
 .box-1{
-    height: calc(100vh - 100px);
+    height: calc(100vh - 126.5px);
 }
 .box-2{
-    height: calc(100vh - 100px);
-    top: 50px;
+    height: calc(100vh - 126.5px);
+    top: 66.5px;
     position: fixed;
     left: 0;
     right: 0;
@@ -98,10 +99,10 @@ export default {
 }
 @supports (bottom: env(safe-area-inset-bottom)) {
     .box-1{
-        height: calc(100vh - 100px - env(safe-area-inset-bottom));
+        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
     }
     .box-2{
-        height: calc(100vh - 100px - env(safe-area-inset-bottom));
+        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
     }
 }
 </style>

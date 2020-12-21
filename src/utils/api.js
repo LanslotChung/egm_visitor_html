@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 let http = axios.create({
-    baseURL: 'https://xiecong123.online/egm',
-    // baseURL: 'http://192.168.3.7:8180/egm',
+   // baseURL: 'https://xiecong123.online/egm',
+     baseURL: 'http://192.168.3.7:8180/egm',
     withCredentials: false,
     headers: {
         'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'

@@ -7,13 +7,18 @@ export default new Router({
   //mode: 'history',
   routes: [
     {
-      path: '/',//微沙盘
-      name: 'index',
-      redirect: '/index',
-      component: () => import('./views/index.vue'),
+      path: '/mainPage',//分享主页
+      name: 'mainPage',
+      component: () => import('./views/mainPage.vue'),
     },
     {
-      path: '/index',
+      path: '/',
+      name: 'mainPage',
+      redirect: '/mainPage',
+      component: () => import('./views/mainPage.vue'),
+    },
+    {
+      path: '/index',//微沙盘
       name: 'index',
       component: () => import('./views/index.vue'),
     },
@@ -77,5 +82,10 @@ export default new Router({
       name: 'soloshow',
       component: () => import('./views/soloshow.vue'),
     },
+    {
+      path: '/articleInfo',//文章推荐
+      name: 'articleInfo',
+      component: () => import('./views/articleInfo.vue'),
+    }
   ]
 })
