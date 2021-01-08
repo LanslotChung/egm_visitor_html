@@ -1,6 +1,6 @@
 <template>
     <div>
-        <!-- <TopFixed /> -->
+        <TopFixed />
         <div class="box-1">
             <iframe class="box-1-0" :src="bottomData[bottomDataName][bottomDataIndex].maps[id].url" frameborder="0" width="100%"></iframe>
         </div>
@@ -8,12 +8,12 @@
     </div>
 </template>
 <script>
-// import TopFixed from "@/components/TopFixed.vue";
+ import TopFixed from "@/components/TopFixed.vue";
 // import BottomNav from "@/components/BottomNav.vue";
 export default {
     name:'hardcoverRoaming',
     components: {
-        // TopFixed,
+        TopFixed,
         // BottomNav,
     },
     data() {
@@ -36,10 +36,10 @@ export default {
 </script>
 <style scoped>
 .box-1{
-    height: 100vh;
+    height: calc(100vh - 66.5px);
 }
 /* .box-1{
-    height: calc(100vh - 100px);
+    height: calc(100vh - 130px);
 } */
 .box-1-0{
     height: 100%;

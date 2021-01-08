@@ -1,19 +1,29 @@
 <template>
   <div>
+    <TopFixed />
+    <div class="box-0">
     <div class="box-1">{{ title }}</div>
     <div class="box-2">{{createTime | formatDate}}</div>
-    <div v-html="content" class="box-3"></div>
+    <div v-html="content" class="box-3" v-if="content"></div>
+    </div>
   </div>
 </template>
 <script>
+import TopFixed from "@/components/TopFixed.vue";
 export default {
   name: "articleInfo",
+  components: {
+    TopFixed,
+  },
   data() {
     return {
       title: window.articleInfo.title,
       createTime: window.articleInfo.createTime,
       content: window.articleInfo.content,
     };
+  },
+  mounted(){
+    document.documentElement.scrollTop=0;
   },
   filters: {
       formatDate: function (value) {
@@ -36,6 +46,11 @@ export default {
 };
 </script>
 <style scoped>
+.box-0{
+ height: calc(100vh - 66.5px);
+  overflow-y: scroll;
+  background-color: #fff;
+}
 .box-1 {
   opacity: 0.9;
   font-size: 24px;

@@ -1,6 +1,12 @@
 <template>
   <div>
     <div class="box-3-0">
+      <van-overlay class="overlay" :show="show" @click="onClickHide">
+        <img class="tips" src="../assets/imgs/ico_jiantou.svg" />
+        <div>请点击右上角
+          <img src="../assets/imgs/ico_fenxiang_p.png" />
+          分享给您的朋友</div>
+      </van-overlay>
       <div class="box-3-0-0">
         <img :src="indexInfo.adviserHeadPic" />
       </div>
@@ -36,7 +42,11 @@
       <div class="box-3-1-0">
         <div class="box-3-1-0-0">{{ indexInfo.productObj.name }}</div>
         <div class="box-3-1-0-1">
-          <div class="box-3-1-0-1-0" v-for="(tag, index) in indexInfo.productObj.labels" :key="index">
+          <div
+            class="box-3-1-0-1-0"
+            v-for="(tag, index) in indexInfo.productObj.labels"
+            :key="index"
+          >
             {{ tag }}
           </div>
         </div>
@@ -83,38 +93,62 @@ export default {
       h: window.screen.height / 4,
       tags: ["宜居生态", "普通住宅", "花园洋房"],
       price: "18000",
+      show: false
     };
   },
   methods: {
+    
     addWechat() {
+      let that = this;
       this.$copyText(this.indexInfo.adviserWxNumber).then(
-        function (e) {
-          alert("微信号已复制");
-          console.log(e);
+        function () {
+          that.$toast("微信号复制成功");
         },
-        function (e) {
-          alert("微信号复制失败，请重试");
-          console.log(e);
+        function () {
+          that.$toast("微信号复制失败，请重试");
         }
       );
     },
-    doShare(){
-      this.$copyText("192.168.3.46:8080/?"+"projectId="+window.parameters.projectId+"&adviserId="+window.parameters.adviserId).then(
-        function (e) {
-          alert("分享地址已复制");
-          console.log(e);
-        },
-        function (e) {
-          alert("分享地址复制失败，请重试");
-          console.log(e);
-        }
-      );
-    }
-
+    doShare() {
+      if (window.parameters.token) {
+        this.show = true;
+      } else {
+        let that=this;
+        this.$copyText(
+          "192.168.3.46:8080/?" +
+            "projectId=" +
+            window.parameters.projectId +
+            "&adviserId=" +
+            window.parameters.adviserId
+        ).then(
+          function () {
+             that.$toast("分享地址复制成功");
+          },
+          function () {
+            alert("分享地址复制失败，请重试");
+          }
+        );
+      }
+    },
+    onClickHide() {
+      this.show = false;
+    },
   },
 };
 </script>
 <style scoped>
+.overlay {
+  font-size: 16px;
+  color: #fff;
+  text-align: right;
+  z-index: 101;
+}
+.tips {
+  height: 30px;
+  transform: rotate(80deg);
+  margin-right: 50px;
+  margin-top: 10px;
+}
 .box-3-0 {
   padding: 3%;
   display: flex;

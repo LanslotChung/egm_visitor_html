@@ -92,7 +92,7 @@
               size="large"
               color="rgb(0, 114, 255)"
               style="
-                width: 300px;
+                width: 8rem;
                 height: 40px;
                 background: #0072ff;
                 border-radius: 20px;
@@ -191,7 +191,7 @@
               size="large"
               color="rgb(0, 114, 255)"
               style="
-                width: 300px;
+                width: 8rem;
                 height: 40px;
                 background: #0072ff;
                 border-radius: 20px;
@@ -324,7 +324,7 @@
               size="large"
               color="rgb(0, 114, 255)"
               style="
-                width: 300px;
+                width: 8rem;
                 height: 40px;
                 background: #0072ff;
                 border-radius: 20px;
@@ -521,11 +521,11 @@ export default {
   margin-top: -37px;
 }
 .title {
-  width: 70px;
+  width: 100px;
   height: 20px;
   font-size: 14px;
   font-weight: 600;
-  text-align: left;
+  text-align: center;
   color: #fefefe;
   line-height: 20px;
   margin-left: 10px;
@@ -533,8 +533,9 @@ export default {
   margin-top: -37px;
 }
 .box-2 {
-  height: calc(100vh - 126.5px);
+  height: calc(100vh - 130px);
   overflow-y: scroll;
+  background: #f7f7f7;
 }
 .box-2-0 {
   height: 220px;
@@ -551,7 +552,7 @@ export default {
 
 @supports (bottom: env(safe-area-inset-bottom)) {
   .box-2 {
-    height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
+    height: calc(100vh - 130px - env(safe-area-inset-bottom));
   }
 }
 </style>

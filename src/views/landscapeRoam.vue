@@ -34,7 +34,7 @@ export default {
                 }
             }
         }
-        console.log(this.url)
+        
     },
     methods: {
 
@@ -43,14 +43,14 @@ export default {
 </script>
 <style scoped>
 .box-1{
-    height: calc(100vh - 126.5px);
+    height: calc(100vh - 130px);
 }
 .box-1-0{
     height: 100%;
 }
 @supports (bottom: env(safe-area-inset-bottom)) {
     .box-1{
-        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
+        height: calc(100vh - 130px - env(safe-area-inset-bottom));
     }
 }
 </style>

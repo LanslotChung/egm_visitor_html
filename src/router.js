@@ -86,6 +86,17 @@ export default new Router({
       path: '/articleInfo',//文章推荐
       name: 'articleInfo',
       component: () => import('./views/articleInfo.vue'),
+    },
+    {
+      path:'/geographicinfo',//地理信息
+      name:'geographicinfo',
+      component: () => import('./views/geographicinfo.vue'),
+    },
+    {
+      path:'/getLoction',//导航
+      name:'getLoction',
+      component: () => import('./views/getLoction.vue'),
+      
     }
   ]
 })

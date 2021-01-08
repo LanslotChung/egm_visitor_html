@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<!-- <TopFixed /> -->
+		<TopFixed />
 		<div class="box-1">
 			<v-touch @pan="pan" @panend="panend" @pinch="pinch">
 				<div class="box-1-0"
@@ -41,14 +41,14 @@
 	</div>
 </template>
 <script>
-	// import TopFixed from "@/components/TopFixed.vue";
+	import TopFixed from "@/components/TopFixed.vue";
 	// import BottomNav from "@/components/BottomNav.vue";
 
 	import RadialProgressBar from 'vue-radial-progress'
 	export default {
 		name: 'airview',
 		components: {
-			// TopFixed,
+			TopFixed,
 			// BottomNav,
 			RadialProgressBar
 		},
@@ -196,7 +196,9 @@
 	}
 </script>
 <style scoped>
-	.box-1,
+	.box-1{
+		height: calc(100vh - 66.5px);
+	}
 	.box-1-0 {
 		height: 100vh;
 		background-color: #fff;

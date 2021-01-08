@@ -1,6 +1,6 @@
 <template>
   <div class="box-0">
-    <div class="box-1">
+    <div class="box-1" v-if="!token">
       <div class="box-1-0" v-if="indexInfo && indexInfo.productObj.name">
         {{ indexInfo.productObj.name }}
       </div>
@@ -45,8 +45,8 @@
       </div>
       <house-type :indexInfo="indexInfo" />
     </div>
-    <div class="box-3" v-if="indexInfo && indexInfo.productBeaPicList">
-      <div class="box-3-4">
+    <div class="box-3" v-if="indexInfo && indexInfo.productBeaPicList" >
+      <div class="box-3-4" >
         <div class="box-3-4-0"></div>
         <div class="box-3-4-1">美图欣赏</div>
         <div class="box-3-4-2" @click="goPage('/beautifulpictures')">
@@ -54,7 +54,9 @@
         </div>
         <img src="../assets/imgs/ico_right.svg" />
       </div>
+      <div @click="goPage('/beautifulpictures')">
       <picture-appreciate :productBeaPicList="indexInfo.productBeaPicList" />
+      </div>
     </div>
     <div class="box-3" v-if="indexInfo&&indexInfo.productObj">
       <div class="box-3-4">
@@ -70,8 +72,8 @@
     <div class="box-3" v-if="indexInfo&&indexInfo.productObj&&indexInfo.projectAssortList">
       <div class="box-3-4">
         <div class="box-3-4-0"></div>
-        <div class="box-3-4-1">周边配套</div>
-        <div class="box-3-4-2" @click="goPage('/circumConfig')">
+        <div class="box-3-4-1">地理信息</div>
+        <div class="box-3-4-2" @click="goGeoPage('/geographicinfo')">
           查看更多
         </div>
         <img src="../assets/imgs/ico_right.svg" />
@@ -109,6 +111,7 @@ export default {
   data() {
   
      return {
+       token:window.parameters.token,
       indexInfo: null,
       w: window.screen.width,
       h: window.screen.height / 4,
@@ -134,16 +137,18 @@ export default {
       this.$copyText(this.wechatId).then(
         function (e) {
           alert("微信号已复制");
-          console.log(e);
+          
         },
         function (e) {
           alert("微信号复制失败，请重试");
-          console.log(e);
+          
         }
       );
     },
     getData() {
       this.indexInfo = window.indexInfo;
+      window.projectAssortList=window.indexInfo.projectAssortList;
+      window.productObj=window.indexInfo.productObj;
     },
     goPage(path) {
       if ("/" + this.$route.matched[0].name == path) {
@@ -153,6 +158,16 @@ export default {
         path: path,
       });
     },
+    goGeoPage(path){
+      window.active=0;
+      if ("/" + this.$route.matched[0].name == path) {
+        return;
+      }
+      this.$router.push({
+        path: path,
+      });
+    },
+    
   },
 };
 </script>
@@ -161,16 +176,16 @@ export default {
   background: #f7f7f7;
 }
 .box-1 {
-  height: 1rem;
+  height: 1.3rem;
   background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0px 2px 10px 0px rgba(228, 231, 237, 0.4);
+  box-shadow: 0px 3px 8px 0px rgba(192, 196, 204, 0.3);
   opacity: 0.9;
-  font-size: 17px;
+  font-size: 19px;
   font-family: PingFangSC, PingFangSC-Medium;
   font-weight: 600;
   text-align: left;
   color: #000000;
-  line-height: 1rem;
+  line-height: 1.3rem;
 }
 .box-1-0 {
   margin-left: 3%;
@@ -183,8 +198,8 @@ export default {
   width: 96%;
   border-radius: 3%;
   padding: 0 2%;
-  max-height: 160px;
   height: 100%;
+  object-fit: cover;
 }
 .box-2-2 {
   display: flex;

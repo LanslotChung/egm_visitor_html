@@ -2,7 +2,7 @@
     <div>
         <TopFixed />
         <div class="box-1">
-            <van-swipe :height="h" vertical :show-indicators="false" @change="contentChangeFn" ref="content" v-if="data">
+            <van-swipe style="height: 100%;" vertical :show-indicators="false" @change="contentChangeFn" ref="content" v-if="data">
                 <van-swipe-item v-for="(item,index) in data.maps" :key="index"  >
                     <img :src="item.url">
                 </van-swipe-item>
@@ -30,7 +30,6 @@ export default {
     },
     data() {
         return {
-            h:window.screen.height-126.5,
             data:null,
             initialSwipe:0,
         }
@@ -39,7 +38,7 @@ export default {
         for(let i=0;i<window.bottomData.matchList.length;i++){
             if(window.bottomData.matchList[i].code == 'peripheral'){
                 this.data = window.bottomData.matchList[i];
-                console.log(11)
+                
             }
         }
         if(this.data == null){
@@ -49,14 +48,14 @@ export default {
                 }
             }
         }
-        console.log(this.data)
+        
     },
     methods:{
         contentChangeFn(e){
             this.initialSwipe = e;
         },
         clickTitleFn(e){
-            console.log(e)
+            
             this.$refs.content.swipeTo(e);
             this.initialSwipe = e;
         }
@@ -65,10 +64,12 @@ export default {
 </script>
 <style scoped>
 .box-1{
-    height: calc(100vh - 126.5px);
+    position: fixed;
+    height: calc(100vh - 130px);
+   
 }
 .box-2{
-    height: calc(100vh - 126.5px);
+    height: calc(100vh - 130px);
     top: 66.5px;
     position: fixed;
     left: 0;
@@ -79,11 +80,12 @@ export default {
     display: block;
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .box-3{
     width: 80px;
     position: fixed;
-    top: 70px;
+    top: 80px;
     right: 20px;
 }
 .box-3 div{
@@ -99,10 +101,10 @@ export default {
 }
 @supports (bottom: env(safe-area-inset-bottom)) {
     .box-1{
-        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
+        height: calc(100vh - 130px - env(safe-area-inset-bottom));
     }
     .box-2{
-        height: calc(100vh - 126.5px - env(safe-area-inset-bottom));
+        height: calc(100vh - 130px - env(safe-area-inset-bottom));
     }
 }
 </style>

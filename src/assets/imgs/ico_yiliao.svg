@@ -1,16 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="18px" height="18px" viewBox="0 0 18 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>ico_yiliao</title>
-    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="1-分享主页" transform="translate(-126.000000, -2123.000000)">
-            <g id="医疗" transform="translate(126.000000, 2122.000000)">
-                <g id="编组-17" transform="translate(0.000000, 1.000000)">
-                    <rect id="矩形备份" x="0" y="0" width="18" height="18"></rect>
-                    <g id="编组" transform="translate(1.000000, 2.000000)" fill="#00C058" fill-rule="nonzero">
-                        <path d="M7.99778786,0.0145479297 L0.00605104935,5.50718548 L0.00605104935,7.0039705 L1.50283607,7.0039705 L1.50283607,13.9934884 L13.9980942,13.9934884 L13.9980942,7.0039705 L15.4947998,7.0039705 L15.4947998,5.50718548 L7.99778786,0.0145479297 Z M11.5669858,9.35733636 L8.79280998,9.35733636 L8.79280998,12.1315122 L6.70316506,12.1315122 L6.70316506,9.35733636 L3.9470312,9.35733636 L3.9470312,7.28581282 L6.72120703,7.28581282 L6.72120703,4.51171639 L8.79280998,4.51171639 L8.79280998,7.28589223 L11.5669858,7.28589223 L11.5669858,9.35733636 Z" id="形状"></path>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
-</svg>
+<svg width="18" height="18" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M0 0h18v18H0z"/><path d="M8.998 2.015L1.006 7.507v1.497h1.497v6.99h12.495v-6.99h1.497V7.507L8.998 2.015zm3.569 9.342H9.793v2.775h-2.09v-2.775H4.947V9.286h2.774V6.512h2.072v2.774h2.774v2.071z" fill="#00C058" fill-rule="nonzero"/></g></svg>

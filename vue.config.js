@@ -1,5 +1,8 @@
 module.exports = {
   // 基本路径
+  // devServer: {
+  //   https: true
+  // },
   publicPath: './',
   css: {
     loaderOptions: {

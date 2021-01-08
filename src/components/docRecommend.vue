@@ -27,11 +27,9 @@ export default {
   },
   methods:{
     goArticleInfo(path,id) {
-      console.log(this.articleInfoList[0].id)
     for(let i=0;i<this.articleInfoList.length;i++){
       if(id==this.articleInfoList[i].id){
       window.articleInfo= this.articleInfoList[i];
-      console.log("21313",window.articleInfo)
       break;
       }
       }

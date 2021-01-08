@@ -2,12 +2,17 @@
   <div>
     <TopFixed />
     <div class="box-1">
+      <div
+        class="line"
+        style="
+          width: 100%;
+          height: 1px;
+          padding-left: 20px;
+          padding-right: 20px;
+          background: #eee;
+          "
+      />
       <div style="display: flex; align-items: center; justify-content: center">
-        <van-icon
-          name="arrow-left"
-          color="rgb(0, 142, 255)"
-          @click="prevTitleFn"
-        />
         <div class="box-1-0">
           <van-swipe
             :loop="false"
@@ -24,24 +29,26 @@
               <div
                 class="box-1-0-0"
                 :style="
-                  initialSwipe == index ? 'background-color: #0072ff;' : ''
+                  initialSwipe == index
+                    ? 'color: #0072ff;font-weight: bold;'
+                    : ''
                 "
               >
                 {{ item.house_type }}
               </div>
+              <div
+                :style="
+                  initialSwipe == index
+                    ? 'margin-left:20%;width:60%;height:3px;background-color: #0072ff;font-weight: bold;'
+                    : ''
+                "
+              ></div>
             </van-swipe-item>
           </van-swipe>
         </div>
-        <van-icon name="arrow" color="rgb(0, 142, 255)" @click="nextTitleFn" />
       </div>
       <div>
         <div class="box-1-1">
-          <van-icon
-            name="arrow-left"
-            color="rgb(0, 142, 255)"
-            class="arrow-left"
-            @click="prevTitleFn"
-          />
           <van-swipe
             :loop="true"
             :show-indicators="false"
@@ -56,12 +63,6 @@
               </div>
             </van-swipe-item>
           </van-swipe>
-          <van-icon
-            name="arrow"
-            color="rgb(0, 142, 255)"
-            class="arrow"
-            @click="nextTitleFn"
-          />
 
           <div
             :class="
@@ -80,6 +81,7 @@
                 ? 'box-1-1-3 box-1-1-3-animation4'
                 : 'box-1-1-3 box-1-1-3-animation3'
             "
+            v-show="familyList[initialSwipe].houseImages.length > 0"
             @click="goAirview"
           >
             鸟瞰户型
@@ -134,7 +136,6 @@ export default {
     //this.$refs.content.resize()
   },
   mounted() {
-    console.log(this.familyList);
     if (window.houseIndex) {
       for (let i = 0; i < this.familyList.length; i++) {
         if (window.houseIndex == this.familyList[i].id) {
@@ -148,16 +149,18 @@ export default {
   },
   methods: {
     titleClickFn(e) {
-      console.log(e);
       this.$refs.content.swipeTo(e);
       this.$refs.title.swipeTo(e);
       this.initialSwipe = e;
+      window.houseIndex = this.familyList[e].id;
     },
     contentChangeFn(e) {
       this.$refs.title.swipeTo(e);
       this.initialSwipe = e;
+      window.houseIndex = e;
+      window.houseIndex = this.familyList[e].id;
     },
-    nextTitleFn: function () {
+    nextTitleFn: function() {
       let e = this.initialSwipe + 1;
       if (e > this.familyList.length - 1) {
         return;
@@ -183,7 +186,7 @@ export default {
           "&id=" +
           this.initialSwipe,
       });
-      // console.log(this.familyList[this.initialSwipe].houseImages.length)
+      //
     },
     goAirview() {
       this.$router.push({
@@ -200,38 +203,23 @@ export default {
 };
 </script>
 <style scoped>
-@supports (bottom: env(safe-area-inset-bottom)) {
-  .box-1 {
-    height: calc(100vh - 100px - env(safe-area-inset-bottom));
-  }
-  .box-1-1 {
-    height: calc(100vh - 160px - env(safe-area-inset-bottom));
-  }
-  /* .box-1-1-1{
-        display: block;
-        width: 344px;
-        height: calc(100vh - 160px - env(safe-area-inset-bottom));
-    } */
-  .box-1-1-0 {
-    height: calc(100vh - 160px - env(safe-area-inset-bottom));
-  }
-}
 .box-1 {
   height: calc(100vh - 100px);
-  background-color: #f0f0f0;
+  background-color: #fff;
+  overflow-x: hidden;
 }
 .box-1-0 {
   height: 20px;
-  padding: 10px 0;
-  width: 296px;
+  width: 100%;
+  padding: 10px 5px;
+  background: #fff;
+  margin-top: 1px;
 }
 .box-1-0-0 {
   margin: 0 2px;
-  background-color: #9e9e9e;
-  border-radius: 4px;
   text-align: center;
-  font-size: 10px;
-  color: #fff;
+  font-size: 14px;
+  color: #000;
   line-height: 20px;
 }
 .box-1-1 {
@@ -266,8 +254,8 @@ export default {
 .box-1-1-2 {
   position: absolute;
   margin: 0 2px;
-  left: 19%;
-  top: 91%;
+  left: 20%;
+  bottom: 30px;
   width: 60%;
   height: 20px;
   border-radius: 20px;
@@ -283,8 +271,8 @@ export default {
 .box-1-1-3 {
   position: absolute;
   margin: 0 2px;
-  left: 8%;
-  top: 91%;
+  left: 20%;
+  bottom: 30px;
   width: 35%;
   height: 20px;
   border-radius: 20px;
@@ -363,7 +351,7 @@ export default {
 
 @supports (bottom: env(safe-area-inset-bottom)) {
   .box-1 {
-    height: calc(100vh - 100px - env(safe-area-inset-bottom));
+    height: calc(100vh - 130px - env(safe-area-inset-bottom));
   }
   .box-1-1 {
     height: calc(100vh - 160px - env(safe-area-inset-bottom));
@@ -372,7 +360,11 @@ export default {
         height: calc(100vh - 160px - env(safe-area-inset-bottom));
     } */
   .box-1-1-0 {
-    height: calc(100vh - 160px - env(safe-area-inset-bottom));
+    height: calc(100vh - 170px - env(safe-area-inset-bottom));
   }
+}
+</style>
+<style>
+.van-swipe {
 }
 </style>

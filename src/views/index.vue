@@ -37,7 +37,7 @@ export default {
                 }
             }
         }
-        console.log(this.url)
+        
     },
     mounted() {
         const iframe = document.querySelector('#ifra');
@@ -46,13 +46,13 @@ export default {
             iframe.attachEvent('onload', function () {
                 // iframe加载完毕以后执行操作
                 _this.ifraShow = true;
-                console.log('iframe已加载完毕')
+                
             })
             } else {
             iframe.onload = function () {
                 // iframe加载完毕以后执行操作
                 _this.ifraShow = true;
-                console.log('iframe已加载完毕')
+                
             }
         }
     },

@@ -6,17 +6,12 @@
         v-for="(item, index) in matchList"
         :key="index"
         class="box-0-0"
-        @click="goPage(item.nav.path)"
+        @click="goPage(item.nav.path, 0)"
       >
         <div class="box-0-0-0">
           <img
             :id="index"
-            :src="item.nav.icon0"
-            :style="
-              item.nav.code == navCode
-                ? 'filter: drop-shadow(#0072FF 0px -60px);position: relative;top: 60px;'
-                : ''
-            "
+            :src="item.nav.code == navCode ? item.nav.icon0 : item.nav.icon1"
           />
         </div>
         <div
@@ -33,8 +28,11 @@
       >
         <div class="box-0-0-0 more">
           <img
-            src="../assets/imgs/ico_gengduo.svg"
-            style="filter: brightness(100%)"
+            :src="
+              moreColor == 0
+                ? moreImgG
+                : moreImg
+            "
           />
         </div>
         <div class="box-0-0-1">更多</div>
@@ -50,20 +48,11 @@
       "
       v-if="data.childrenList.length > 0"
     >
-      <div
-        v-for="(item, index) in childrenList"
-        :key="item.code"
-        style="border-bottom: 1px solid #e0e0e0"
-      >
-        <div v-if="index < 4" class="box-1-0" @click="goPage(item.nav.path)">
+      <div v-for="(item, index) in childrenList" :key="item.code">
+        <div v-if="index < 4" class="box-1-0" @click="goPage(item.nav.path, 1)">
           <div class="box-0-0-0">
             <img
-              :src="item.nav.icon0"
-              :style="
-                item.nav.code == navCode
-                  ? 'filter: drop-shadow(#0072FF 0px -60px);position: relative;top: 60px;'
-                  : ''
-              "
+              :src="item.nav.code == navCode ? item.nav.icon0 : item.nav.icon1"
             />
           </div>
           <div
@@ -74,16 +63,19 @@
           </div>
         </div>
       </div>
-      <div v-for="(item, index) in childrenList" :key="item.code">
-        <div v-if="index >= 4" class="box-1-0" @click="goPage(item.nav.path)">
+      <div
+        class="box-1-0-0"
+        v-for="(item, index) in childrenList"
+        :key="item.code"
+      >
+        <div
+          v-if="index >= 4"
+          class="box-1-0"
+          @click="goPage(item.nav.path, 1)"
+        >
           <div class="box-0-0-0">
             <img
-              :src="item.nav.icon0"
-              :style="
-                item.nav.code == navCode
-                  ? 'filter: drop-shadow(#0072FF 0px -60px);position: relative;top: 60px;'
-                  : ''
-              "
+              :src="item.nav.code == navCode ? item.nav.icon0 : item.nav.icon1"
             />
           </div>
           <div
@@ -109,67 +101,77 @@ export default {
   data() {
     return {
       data: window.bottomData,
+      moreColor: window.moreColor,
+      moreImg: require("../assets/imgs/ico_gengduo.svg"),
+      moreImgG:require("../assets/imgs/ico_gengduo_grey.svg"),
       nav: [
         {
           code: "sandtable", //微沙盘
           path: "/index",
           icon0: require("../assets/imgs/ico_niaokan.svg"),
-          
+          icon1: require("../assets/imgs/ico_niaokan_grey.svg"),
         },
         {
           code: "ebook", //电子楼书
           path: "/buildingElectronicBooks",
           icon0: require("../assets/imgs/ico_dianzishu.svg"),
-          
+          icon1: require("../assets/imgs/ico_dianzishu_grey.svg"),
         },
         {
           code: "Houseappreciation", //户型鉴赏
           path: "/houseAppreciation",
           icon0: require("../assets/imgs/ico_huxingjianshang.svg"),
-          
+          icon1: require("../assets/imgs/ico_huxingjianshang_grey.svg"),
         },
         {
           code: "landscaperoam", //景观漫游
           path: "/landscapeRoam",
           icon0: require("../assets/imgs/ico_jingguan.svg"),
-          
+          icon1: require("../assets/imgs/ico_jingguan_grey.svg"),
         },
         {
           code: "houseloan", //房贷计算器
           path: "/mortgageCalculator",
           icon0: require("../assets/imgs/ico_jisuanqi.svg"),
-         
+          icon1: require("../assets/imgs/ico_jisuanqi_grey.svg"),
         },
         {
           code: "basicInfo", //基本信息
           path: "/basicInfo",
           icon0: require("../assets/imgs/ico_jibenxinxi.svg"),
-          
+          icon1: require("../assets/imgs/ico_jibenxinxi_grey.svg"),
         },
         {
           code: "beautifulpictures", //美图鉴赏
           path: "/beautifulpictures",
           icon0: require("../assets/imgs/ico_meitu.svg"),
-         
+          icon1: require("../assets/imgs/ico_meitu_grey.svg"),
         },
 
         {
           code: "peripheral", //周边配置
           path: "/circumConfig",
           icon0: require("../assets/imgs/ico_zhoubian.svg"),
-          
+          icon1: require("../assets/imgs/ico_zhoubian_grey.svg"),
         },
 
         {
           code: "versiondeclarate", //版权申明
           path: "/versiondeclarate",
           icon0: require("../assets/imgs/ico_banben.svg"),
-          
+          icon1: require("../assets/imgs/ico_banben_grey.svg"),
         },
         {
           code: "soloshow", //独栋展示
           path: "/soloshow",
           icon0: require("../assets/imgs/ico_litishapan.svg"),
+          icon1: require("../assets/imgs/ico_litishapan_grey.svg"),
+        },
+        {
+          code: "geographicinfo", //地理信息
+          path: "/geographicinfo",
+          icon0: require("../assets/imgs/ico_dili.svg"),
+          icon1: require("../assets/imgs/ico_dili_grey.svg"),
         },
       ],
       matchList: [],
@@ -201,7 +203,8 @@ export default {
     }
   },
   methods: {
-    goPage(path) {
+    goPage(path, colorCode) {
+      window.moreColor = colorCode;
       if ("/" + this.$route.matched[0].name == path) {
         return;
       }
@@ -224,9 +227,9 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  border-top: 0.5px solid #9e9e9e;
   background: #ffffff;
-  z-index: 100;
+  z-index: 999;
+  overflow: visible;
 }
 
 .box-0 {
@@ -236,8 +239,9 @@ export default {
   height: 60px;
   line-height: 60px;
   position: relative;
-  z-index: 100;
-  background: rgba(240, 240, 240, 0.9);
+  background: #ffffff;
+  z-index: 999;
+  overflow: visible;
 }
 
 .box-0-0 {
@@ -247,29 +251,38 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  z-index: 999;
+  overflow: visible;
 }
 .box-0-0-0 {
   width: 32%;
   height: 40%;
   margin-top: 17%;
+  z-index: inherit;
+  overflow: visible;
 }
 .box-0-0-0 img {
   width: 24px;
   height: 24px;
   display: block;
+  z-index: inherit;
+  overflow: visible;
 }
 .box-0-0-1 {
   font-size: 10px;
   height: 14px;
   line-height: 14px;
-  padding-top: 7%;
-  padding-bottom: 13%;
+  margin-top: 7%;
+  margin-bottom: 13%;
   color: #222426;
+  z-index: inherit;
+  overflow: visible;
 }
 .more {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: visible;
 }
 
 .box-1 {
@@ -277,25 +290,25 @@ export default {
   bottom: -150px;
   left: 30%;
   right: 1%;
-  z-index: 8;
   display: flex;
   text-align: center;
   font-size: 15px;
   flex-wrap: wrap;
-  background: rgba(240, 240, 240, 0.95);
-  justify-content: center;
-  border-top: 0.5px solid #e0e0e0;
+  background: #ffffff;
+  justify-content: left;
   border-radius: 6px;
-  z-index: 99;
+  z-index: 2;
   margin-bottom: 5%;
+  padding-left: 3%;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+  overflow: visible;
 }
 
 .box-1::before {
   content: "";
   position: absolute;
   top: 103%;
-  left: 88%;
+  left: 85%;
   width: 10px;
   height: 10px;
   margin-top: -10px;
@@ -303,16 +316,20 @@ export default {
   /*自动继承父元素的背景*/
   transform: rotate(45deg);
   z-index: 1;
+  overflow: visible;
 }
 .box-1-myfirst {
   animation: myfirst 0.2s;
   animation-fill-mode: forwards;
+  overflow: visible;
 }
 .box-1-myfirst1 {
   animation: myfirst1 0.2s;
   animation-fill-mode: forwards;
+  overflow: visible;
 }
 .box-1-0 {
+  position: relative;
   width: 70px;
   margin: 0 5px;
   color: #999;
@@ -323,6 +340,11 @@ export default {
   height: 49.5px;
   color: #9e9e9e;
   overflow: hidden;
+  z-index: inherit;
+}
+.box-1-0-0 {
+  position: relative;
+  z-index: 2;
 }
 @keyframes myfirst {
   from {

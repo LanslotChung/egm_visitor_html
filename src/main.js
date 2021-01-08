@@ -9,6 +9,7 @@ import Api from './utils/api.js';
 import RadialProgressBar from 'vue-radial-progress'
 import VueClipboard from 'vue-clipboard2'
 import AMap from 'vue-amap';
+import {Toast} from 'vant'
 
 Vue.prototype.$api = Api;
 Vue.use(VueTouch, { name: 'v-touch' })
@@ -16,15 +17,27 @@ Vue.use(Vant);
 Vue.use(RadialProgressBar);
 Vue.use(VueClipboard);
 Vue.use(AMap);
+Vue.use(Toast)
 
 
 AMap.initAMapApiLoader({
   // 高德key
   key: '9b6d113ef3c481a23b2f27fcb471f5e8',
-  plugin: ['AMap.Geolocation'],
+  plugin: ['AMap.Geolocation','AMap.Walking','AMap.Driving'],
   uiVersion: '1.1'
 
 });
+
+
+
+// window.wx.config({
+//   appId: res.appId,
+//   timestamp: res.timestamp,
+//   nonceStr: res.nonceStr,
+//   signature: res.signature,
+//   jsApiList: ["openLocation"],
+// });
+
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -42,6 +55,8 @@ const formatNumber = n => {
 }
 
 function generateBehaviorJsonArray(name, txt) {
+  let isExist =Object.prototype.hasOwnProperty.call(window.parameters,"token")
+  if(isExist){
   if (name != 'houseAppreciation') {
     //发送访问记录
     if (window.addHouseBrowsingArray.length > 0) {
@@ -59,13 +74,12 @@ function generateBehaviorJsonArray(name, txt) {
           jsonArray.push(window.addHouseBrowsingArray[i]);
         }
       }
-      console.log(jsonArray)
       //发送日志
       Api.post('/userIndex/addHouseBrowsing', {
         projectId: window.parameters.projectId,
         token: window.parameters.token,
         jsonArray: JSON.stringify(jsonArray)
-      }, response => { console.log(response) });
+      });
       window.addHouseBrowsingArray = [];
     }
   } else {//户型鉴赏
@@ -84,8 +98,7 @@ function generateBehaviorJsonArray(name, txt) {
         programLength: 0,
         token: window.parameters.token,
         jsonArray: JSON.stringify(window.behaviorJsonArray)
-      }, response => { console.log(response) });
-      console.log(window.behaviorJsonArray)
+      });
       window.behaviorJsonArray = [];
       window.behaviorJsonArray.push({
         beginTime: new Date() - 0,
@@ -107,10 +120,19 @@ function generateBehaviorJsonArray(name, txt) {
     })
   }
 }
+}
 
 Vue.config.productionTip = false
 router.beforeEach((to, from, next) => {
-  console.log(to, from)
+  if(window.goBack==1){
+    window.goBack=0;
+    router.push({
+      name:"mainPage",
+      path: "/mainPage",
+});
+
+  }
+  window.document.title="云中观楼";
   window.goBackPathName = to.name;
   switch (to.name) {
     case 'index':
@@ -153,6 +175,10 @@ router.beforeEach((to, from, next) => {
       generateBehaviorJsonArray('soloshow', '独栋展示')
       requestBottomData(next);
       break; //可选
+    case 'geographicinfo':
+        generateBehaviorJsonArray('geographicinfo', '地理信息')
+        requestBottomData(next);
+        break; //可选
     case 'hardcoverRoaming':
       window.addHouseBrowsingArray.push({
         houseId: window.bottomData[to.query.bottomDataName][to.query.bottomDataIndex].maps[to.query.id].id,
@@ -171,8 +197,7 @@ router.beforeEach((to, from, next) => {
           programLength: 0,
           token: window.parameters.token,
           jsonArray: JSON.stringify(window.behaviorJsonArray)
-        }, response => { console.log(response) });
-        console.log(window.behaviorJsonArray)
+        });
         window.behaviorJsonArray = [];
         window.behaviorJsonArray.push({
           beginTime: new Date() - 0,
@@ -212,8 +237,7 @@ router.beforeEach((to, from, next) => {
           programLength: 0,
           token: window.parameters.token,
           jsonArray: JSON.stringify(window.behaviorJsonArray)
-        }, response => { console.log(response) });
-        console.log(window.behaviorJsonArray)
+        });
         window.behaviorJsonArray = [];
         window.behaviorJsonArray.push({
           beginTime: new Date() - 0,
@@ -236,22 +260,36 @@ router.beforeEach((to, from, next) => {
       break; //可选
     case "mainPage":
       if (!window.indexInfo) {
-        
+        if(!window.parameters.token){
 
         Api.post('/userIndex/auto2Info', {
           projectId: window.parameters.projectId,
           adviserId: window.parameters.adviserId
         }, response => {
           if (response.status >= 200 && response.status < 300) {
-            //console.log("indexInfo============",response.data.data)
             window.indexInfo = response.data.data;
             window.document.title=window.indexInfo.productObj.name;
             next();
           }
-          else {
-            console.log(response.message);
+        })
+      }else{
+       
+        Api.post('/userIndex/info2', {
+          token:window.parameters.token,
+          projectId: window.parameters.projectId,
+          adviserId: window.parameters.adviserId,
+          address:window.parameters.address,
+          longitude:window.parameters.longitude,
+          latitude:window.parameters.latitude
+        }, response => {
+          if (response.status >= 200 && response.status < 300) {
+            window.indexInfo = response.data.data;
+            window.title=window.indexInfo.productObj.name;
+            window.document.title=window.title;
+            next();
           }
         })
+      }
       }else{
         next();
       }
@@ -261,9 +299,6 @@ router.beforeEach((to, from, next) => {
     next();
       break;
   }
-
-
-
 })
 document.getElementById('indexLoading').style.display = 'none';
 new Vue({
@@ -278,7 +313,6 @@ function requestBottomData(next) {
       projectId: window.parameters.projectId
     }, response => {
       if (response.status >= 200 && response.status < 300) {
-        console.log(response.data.data)
         let obj = {
           matchList: [],
           childrenList: []
@@ -296,8 +330,6 @@ function requestBottomData(next) {
         window.belowImage = response.data.data.belowImage;
 
         next();
-      } else {
-        console.log(response.message);
       }
     });
   } else {

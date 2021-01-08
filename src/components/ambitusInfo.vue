@@ -4,10 +4,10 @@
       <div style="width: 100%; height: 5.4rem">
         <el-amap
           vid="amap"
-          :zoom="15"
-          :dragEnable="false"
+          :zoom="14"
           :doubleClickZoom="false"
           :rotateEnable="false"
+          :touchZoom="false"
           class="amap-demo"
           :center="[productObj.longitude, productObj.latitude]"
         >
@@ -29,7 +29,7 @@
         <div
           class="box-1-1-1"
           v-for="(assortList, index) in projectAssortList"
-          :key="index"
+          :key="index" @click="goGeoPage('/geographicinfo',index)"
         >
           <div v-for="(img, index) in imgs" :key="index">
             <img :src="img.src" v-if="img.title == assortList.title" />
@@ -54,11 +54,6 @@ export default {
   data() {
     
     return {
-     style:  {
-                        'color': '#fff',
-                        'background-color': '#ff4891',
-                        'border': 'none'
-       },
       imgs: [
         { title: "交通", src: require("../assets/imgs/ico_jiaotong.svg") },
         { title: "教育", src: require("../assets/imgs/ico_jiaoyu.svg") },
@@ -74,7 +69,17 @@ export default {
     };
   },
  
-  methods: {},
+  methods: {
+    goGeoPage(path,active){
+      window.active=active;
+      if ("/" + this.$route.matched[0].name == path) {
+        return;
+      }
+      this.$router.push({
+        path: path,
+      });
+    }
+  },
 };
 </script>
 <style scoped>
