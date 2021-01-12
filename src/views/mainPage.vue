@@ -6,7 +6,7 @@
       </div>
     </div>
     <!-- 轮播图 -->
-    <div class="box-2" v-if="indexInfo&&indexInfo.projectAdvertList">
+    <div class="box-2" v-if="indexInfo&&indexInfo.projectAdvertList.length">
       <van-swipe :autoplay="30000" :width="w" :height="h" @change="onChange">
         <van-swipe-item
           class="box-2-1"
@@ -16,7 +16,7 @@
           <img :id="index" :src="image.url" />
         </van-swipe-item>
         <div class="custom-indicator" slot="indicator">
-          <div class="box-2-2" v-if="indexInfo.projectAdvertList.length>=2">
+          <div class="box-2-2" v-if="indexInfo.projectAdvertList.length > 1">
             <div
               :class="current == index ? 'box-2-2-1 ' : ' box-2-2-2'"
               v-for="(image, index) in indexInfo.projectAdvertList"
@@ -31,10 +31,11 @@
       <adviser-card :indexInfo="indexInfo" />
     </div>
     <!-- 线上展厅 -->
-    <div class="box-3" v-if="indexInfo&&indexInfo.productSingleFamily">
-      <show-room :productSingleFamily="indexInfo.productSingleFamily" />
+    <div class="box-3" v-if="indexInfo&&indexInfo.projectMatching.url">
+      <show-room :productSingleFamily="indexInfo.productSingleFamily" :productObj="indexInfo.productObj" />
     </div>
-    <div class="box-3" v-if="indexInfo">
+    <!-- 带我看户型 -->
+    <div class="box-3" v-if="indexInfo&&indexInfo.productHouseList&&indexInfo.productHouseList.length">
       <div class="box-3-4">
         <div class="box-3-4-0"></div>
         <div class="box-3-4-1">带我看户型</div>
@@ -45,7 +46,8 @@
       </div>
       <house-type :indexInfo="indexInfo" />
     </div>
-    <div class="box-3" v-if="indexInfo && indexInfo.productBeaPicList" >
+    <!-- 美图欣赏 -->
+    <div class="box-3" v-if="indexInfo && indexInfo.productBeaPicList && indexInfo.productBeaPicList.length" >
       <div class="box-3-4" >
         <div class="box-3-4-0"></div>
         <div class="box-3-4-1">美图欣赏</div>
@@ -58,6 +60,7 @@
       <picture-appreciate :productBeaPicList="indexInfo.productBeaPicList" />
       </div>
     </div>
+    <!-- 楼盘信息 -->
     <div class="box-3" v-if="indexInfo&&indexInfo.productObj">
       <div class="box-3-4">
         <div class="box-3-4-0"></div>
@@ -69,7 +72,8 @@
       </div>
       <building-info :productObj="indexInfo.productObj" />
     </div>
-    <div class="box-3" v-if="indexInfo&&indexInfo.productObj&&indexInfo.projectAssortList">
+    <!-- 地理信息 -->
+    <div class="box-3" v-if="indexInfo&&indexInfo.productObj&&indexInfo.projectAssortList.length >0">
       <div class="box-3-4">
         <div class="box-3-4-0"></div>
         <div class="box-3-4-1">地理信息</div>
@@ -80,7 +84,7 @@
       </div>
       <ambitus-info :productObj="indexInfo.productObj" :projectAssortList="indexInfo.projectAssortList"/>
     </div>
-    <div class="box-3" v-if="indexInfo&&indexInfo.articleInfoList">
+    <div class="box-3" v-if="indexInfo&&indexInfo.articleInfoList.length >0">
       <div class="box-3-4">
         <div class="box-3-4-0"></div>
         <div class="box-3-4-1">文章推荐</div>
@@ -128,25 +132,15 @@ export default {
   created() {},
   mounted() {
     this.getData();
+    document.body.scrollTop = 0;
   },
   methods: {
     onChange(index) {
       this.current = index;
     },
-    addWechat() {
-      this.$copyText(this.wechatId).then(
-        function (e) {
-          alert("微信号已复制");
-          
-        },
-        function (e) {
-          alert("微信号复制失败，请重试");
-          
-        }
-      );
-    },
     getData() {
       this.indexInfo = window.indexInfo;
+      console.log("Index Info : ------------",this.indexInfo);
       window.projectAssortList=window.indexInfo.projectAssortList;
       window.productObj=window.indexInfo.productObj;
     },

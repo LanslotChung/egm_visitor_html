@@ -145,13 +145,15 @@ export default {
     this.familyList.forEach((imgInfo) => {
       var allImgs = this.imgDict.get("全部");
       allImgs.push(imgInfo.url);
-      if (this.imgDict.containsKey(imgInfo.name)) {
-        var imgs = this.imgDict.get(imgInfo.name);
+      var key = imgInfo.name ? imgInfo.name : "默认";
+      if (this.imgDict.containsKey(key)) {
+        var imgs = this.imgDict.get(key);
         imgs.push(imgInfo.url);
       } else {
-        this.imgDict.put(imgInfo.name, new Array(imgInfo.url));
+        this.imgDict.put(key, new Array(imgInfo.url));
       }
     });
+    
   },
   methods: {
     titleClickFn(e) {

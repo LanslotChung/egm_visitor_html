@@ -9,7 +9,7 @@
           </div>
         </div>
         <div class="box-3-0-1-1">
-          <div class="box-3-0-1-1-1">主推户型</div>
+          <div class="box-3-0-1-1-1">待定</div>
           <div class="box-3-0-1-1-2">
             <img src="../assets/imgs/ico_zhutui_huxing.svg" />主推户型
           </div>
@@ -31,7 +31,7 @@
       </div>
     </div>
     <div class="box-3-1">
-      <img src="../assets/imgs/ico_dingwei.svg" />{{ productObj.address }}
+      <img src="../assets/imgs/ico_dingwei.svg" />{{ productObj.address.replace(/\//g,'') }}
     </div>
   </div>
 </template>
@@ -97,7 +97,7 @@ export default {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-right: 3%;
+  margin-right: 15px;
   opacity: 0.9;
   font-size: 14px;
   font-family: PingFangSC, PingFangSC-Medium;
@@ -105,7 +105,7 @@ export default {
   text-align: left;
   color: #222426;
   line-height: 18px;
-  padding-bottom: 5%;
+  padding-bottom: 2.5%;
 }
 .box-3-1 img {
   width: 16px;

@@ -288,8 +288,8 @@ export default {
 .box-1 {
   position: absolute;
   bottom: -150px;
-  left: 30%;
-  right: 1%;
+  max-width: 225px;
+  right: 10px;
   display: flex;
   text-align: center;
   font-size: 15px;
@@ -298,8 +298,7 @@ export default {
   justify-content: left;
   border-radius: 6px;
   z-index: 2;
-  margin-bottom: 5%;
-  padding-left: 3%;
+  margin-bottom: 25px;
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
   overflow: visible;
 }
@@ -307,11 +306,11 @@ export default {
 .box-1::before {
   content: "";
   position: absolute;
-  top: 103%;
-  left: 85%;
+  right: 20px;
   width: 10px;
   height: 10px;
   margin-top: -10px;
+  bottom: -5px;
   background: inherit;
   /*自动继承父元素的背景*/
   transform: rotate(45deg);
@@ -330,14 +329,13 @@ export default {
 }
 .box-1-0 {
   position: relative;
-  width: 70px;
-  margin: 0 5px;
+  width: 75px;
   color: #999;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 49.5px;
+  height: 60px;
   color: #9e9e9e;
   overflow: hidden;
   z-index: inherit;

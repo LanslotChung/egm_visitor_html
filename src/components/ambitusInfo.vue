@@ -85,7 +85,7 @@ export default {
 <style scoped>
 .box-1 {
   margin: 0 3%;
-  padding-bottom: 5%;
+  padding-bottom: 3%;
 }
 .box-1-1 {
   position: absolute;

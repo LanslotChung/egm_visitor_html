@@ -19,7 +19,7 @@ Vue.use(VueClipboard);
 Vue.use(AMap);
 Vue.use(Toast)
 
-
+//初始化高德地图API
 AMap.initAMapApiLoader({
   // 高德key
   key: '9b6d113ef3c481a23b2f27fcb471f5e8',
@@ -38,6 +38,7 @@ AMap.initAMapApiLoader({
 //   jsApiList: ["openLocation"],
 // });
 
+//FMT
 const formatTime = date => {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -261,10 +262,17 @@ router.beforeEach((to, from, next) => {
     case "mainPage":
       if (!window.indexInfo) {
         if(!window.parameters.token){
+          //获取首页数据（未授权）
+          let isMinProgram=1;
+         if(window.__wxjs_environment=='miniprogram'){
+          isMinProgram=2;
+         } 
 
+         console.log("--------------",isMinProgram)
         Api.post('/userIndex/auto2Info', {
           projectId: window.parameters.projectId,
-          adviserId: window.parameters.adviserId
+          adviserId: window.parameters.adviserId,
+          isMinProgram:isMinProgram //是否有双端访问权限(1:web端 2：双端)
         }, response => {
           if (response.status >= 200 && response.status < 300) {
             window.indexInfo = response.data.data;
@@ -273,7 +281,7 @@ router.beforeEach((to, from, next) => {
           }
         })
       }else{
-       
+       //获取首页数据（已授权）
         Api.post('/userIndex/info2', {
           token:window.parameters.token,
           projectId: window.parameters.projectId,

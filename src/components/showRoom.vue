@@ -5,10 +5,10 @@
       <div class="box-3-4-1">线上展厅</div>
     </div>
     <div
-      :style="'height:' + h + 'px;padding-bottom: 4%;position: relative;'"
+      :style="'height:' + h + 'px;padding-bottom: 3%;position: relative;'"
       @click="goPage('/index')"
     >
-      <img
+      <img v-if="productSingleFamily"
         style="
           margin-left: 3%;
           width: 94%;
@@ -17,6 +17,16 @@
           object-fit: cover;
         "
         :src="productSingleFamily.url"
+      />
+      <img v-else
+        style="
+          margin-left: 3%;
+          width: 94%;
+          border-radius: 4px;
+          height: 100%;
+          object-fit: cover;
+        "
+        :src="productObj.mainPic"
       />
       <img
         src="../assets/imgs/ico_quanjing.svg"
@@ -41,6 +51,9 @@ export default {
     productSingleFamily: {
       type: Object,
     },
+    productObj:{
+      type:Object,
+    }
   },
   data() {
     return {

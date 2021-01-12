@@ -7,10 +7,10 @@
         :key="index"
         @click="goHouseType('/houseAppreciation',houseList.id)"
       >
-        <img :src="houseList.thumb_pic" />
-        <div class="box-3-1-0-0">{{ houseList.title }}</div>
-        <div class="box-3-1-0-1">￥{{ houseList.price }}</div>
-        <div class="box-3-1-0-2">{{ houseList.sub_title }}</div>
+        <img v-if="houseList.thumb_pic" :src="houseList.thumb_pic" />
+        <div v-if="houseList.title" class="box-3-1-0-0">{{ houseList.title }}</div>
+        <div v-if="houseList.price" class="box-3-1-0-1">￥{{ houseList.price }}</div>
+        <div v-if="houseList.sub_title" class="box-3-1-0-2">{{ houseList.sub_title }}</div>
       </div> 
     </div>
   </div>
@@ -48,7 +48,6 @@ export default {
   overflow-y: hidden;
   overflow-x: scroll;
   margin: 0 3%;
-  padding-bottom: 3%;
 }
 .box-3-1-0 {
   margin-left: 3%;
@@ -96,5 +95,6 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+  padding-bottom: 10px;
 }
 </style>

@@ -75,7 +75,7 @@
     </div>
     <div class="box-3-3">
       <img src="../assets/imgs/ico_dingwei.svg" />
-      <div class="box-3-3-0">{{ indexInfo.productObj.address }}</div>
+      <div class="box-3-3-0">{{ indexInfo.productObj.address.replace(/\//g,'') }}</div>
     </div>
   </div>
 </template>
@@ -242,7 +242,8 @@ export default {
   font-weight: 600;
   text-align: left;
   color: #000000;
-  line-height: 1rem;
+  line-height: 17px;
+  padding-bottom: 10px;
 }
 .box-3-1-0-1 {
   display: flex;
@@ -275,7 +276,7 @@ export default {
   font-weight: 900;
   text-align: left;
   color: #ff5500;
-  line-height: 24px;
+  line-height: 17px;
   text-align: right;
 }
 .box-3-1-1-1 {
@@ -293,7 +294,6 @@ export default {
   display: flex;
   align-items: center;
   height: 0.74667rem;
-  padding: 1% 0;
 }
 .box-3-2-0 {
   display: flex;
@@ -305,7 +305,7 @@ export default {
 }
 .box-3-2-1 {
   margin-left: 4%;
-  width: 32%;
+  width: 25%;
 }
 .box-3-2-1 img {
   width: 24px;
@@ -341,9 +341,7 @@ export default {
   text-align: left;
   color: #222426;
   line-height: 16px;
-  height: 0.7rem;
-  padding-bottom: 2%;
-  padding-left: 3%;
+  padding: 3%;
 }
 .box-3-3 img {
   height: 60%;
