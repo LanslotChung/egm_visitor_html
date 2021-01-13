@@ -62,7 +62,8 @@
           <img
             v-for="(image, index) in indexInfo.visitorHeadPics"
             :key="index"
-            :src="image.headPic"
+            :src="image?image.headPic:'#'"
+            v-show="image"
           />
         </div>
         <div style="color: #0072ff">{{ indexInfo.hits }}</div>
@@ -342,6 +343,7 @@ export default {
   color: #222426;
   line-height: 16px;
   padding: 3%;
+
 }
 .box-3-3 img {
   height: 60%;

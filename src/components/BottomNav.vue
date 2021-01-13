@@ -27,13 +27,7 @@
         @click="showChildrenListFn"
       >
         <div class="box-0-0-0 more">
-          <img
-            :src="
-              moreColor == 0
-                ? moreImgG
-                : moreImg
-            "
-          />
+          <img :src="moreColor == 0 ? moreImgG : moreImg" />
         </div>
         <div class="box-0-0-1">更多</div>
       </div>
@@ -101,9 +95,9 @@ export default {
   data() {
     return {
       data: window.bottomData,
-      moreColor: window.moreColor,
+      moreColor: 0,
       moreImg: require("../assets/imgs/ico_gengduo.svg"),
-      moreImgG:require("../assets/imgs/ico_gengduo_grey.svg"),
+      moreImgG: require("../assets/imgs/ico_gengduo_grey.svg"),
       nav: [
         {
           code: "sandtable", //微沙盘
@@ -201,10 +195,10 @@ export default {
         }
       }
     }
+    this.moreColor = window.collapse.indexOf(this.navCode) >= 0 ? 1 : 0;
   },
   methods: {
-    goPage(path, colorCode) {
-      window.moreColor = colorCode;
+    goPage(path) {
       if ("/" + this.$route.matched[0].name == path) {
         return;
       }

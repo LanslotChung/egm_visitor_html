@@ -133,7 +133,6 @@ router.beforeEach((to, from, next) => {
 });
 
   }
-  window.document.title="云中观楼";
   window.goBackPathName = to.name;
   switch (to.name) {
     case 'index':
@@ -276,7 +275,7 @@ router.beforeEach((to, from, next) => {
         }, response => {
           if (response.status >= 200 && response.status < 300) {
             window.indexInfo = response.data.data;
-            window.document.title=window.indexInfo.productObj.name;
+            window.document.title= window.indexInfo.productObj.name;
             next();
           }
         })
@@ -317,6 +316,7 @@ new Vue({
 
 function requestBottomData(next) {
   if (!window.bottomData) {
+    let collapse = new Array();
     Api.post('/userIndex/matchList', {
       projectId: window.parameters.projectId
     }, response => {
@@ -330,6 +330,7 @@ function requestBottomData(next) {
             obj.matchList.push(response.data.data.matchList[i])
           } else {
             obj.childrenList.push(response.data.data.matchList[i])
+            collapse.push(response.data.data.matchList[i].code);
           }
         }
         window.bottomData = obj;
@@ -337,6 +338,7 @@ function requestBottomData(next) {
         window.aboveImage = response.data.data.aboveImage;
         window.belowImage = response.data.data.belowImage;
 
+        window.collapse = collapse;
         next();
       }
     });

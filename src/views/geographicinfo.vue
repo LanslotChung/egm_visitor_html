@@ -3,13 +3,7 @@
     <TopFixed />
     <div class="box-1">
       <div id="map" style="width: 100%; height: 100%"></div>
-      <div
-        :class="
-          pull == 0
-            ? 'menu_panel menu_panel-up_anim'
-            : 'menu_panel menu_panel-down_anim'
-        "
-      >
+      <div :class="panel_anim">
         <div class="pull" @click="pullMenu">
           <img
             :class="pull == 0 ? 'pull_img-animation4' : 'pull_img-animation3'"
@@ -19,13 +13,11 @@
         <div class="center" @click="panTocenter">
           <img src="../assets/imgs/ico_zhunxin.svg" />
         </div>
-        <van-tabs :active="active" @change="onChange" >
+        <van-tabs :active="active" @change="onChange">
           <van-tab
             v-for="(list, index) in projectAssortList"
             :key="index"
             :title="list.title"
-            
-
           >
             <div
               class="item"
@@ -77,7 +69,10 @@
     <BottomNav navCode="geographicinfo" />
   </div>
 </template>
-<script type="text/javascript" src="https://webapi.amap.com/maps?v=1.1&key=9b6d113ef3c481a23b2f27fcb471f5e8"></script>
+<script
+  type="text/javascript"
+  src="https://webapi.amap.com/maps?v=1.1&key=9b6d113ef3c481a23b2f27fcb471f5e8"
+></script>
 <script>
 import TopFixed from "@/components/TopFixed.vue";
 import BottomNav from "@/components/BottomNav.vue";
@@ -100,30 +95,49 @@ export default {
       projectFacilityList: window.projectAssortList[0].projectFacilityList,
       proLntLat: [window.productObj.longitude, window.productObj.latitude],
       animOffsetY: 0,
+      panel_anim: "",
     };
   },
   mounted() {
-    this.map = new AMap.Map("map", {
-      resizeEnable: true,
-      zoom: 13,
-      center: [window.productObj.longitude, window.productObj.latitude],
-    });
-    this.marker = new AMap.Marker({
-      map: this.map,
-      icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png",
-      position: [window.productObj.longitude, window.productObj.latitude],
-    });
-    this.text = new AMap.Text({
-      map: this.map,
-      text: window.productObj.name,
-      position: [window.productObj.longitude, window.productObj.latitude],
-      offset: new AMap.Pixel(0, -50),
-    });
-    this.text.setStyle({ "font-size": "10px", padding: "5px", border: "none" });
-    this.onChange(window.active);
+    setTimeout(() => {
+      this.map = new AMap.Map("map", {
+        resizeEnable: true,
+        zoom: 13,
+        center: [window.productObj.longitude, window.productObj.latitude],
+      });
+      this.marker = new AMap.Marker({
+        map: this.map,
+        icon: "https://webapi.amap.com/theme/v1.3/markers/n/mark_r.png",
+        position: [window.productObj.longitude, window.productObj.latitude],
+      });
+      this.text = new AMap.Text({
+        map: this.map,
+        text: window.productObj.name,
+        position: [window.productObj.longitude, window.productObj.latitude],
+        offset: new AMap.Pixel(0, -50),
+      });
+      this.text.setStyle({
+        "font-size": "10px",
+        padding: "5px",
+        border: "none",
+      });
+      if (window.active == null) {
+        this.onChange(0);
+      } else {
+        console.log(window.active);
+        this.onChange(window.active);
+      }
 
-    this.animOffsetY = document.getElementById("map").clientHeight / 4;
-    this.map.panBy(0, -this.animOffsetY);
+      this.animOffsetY = document.getElementById("map").clientHeight / 4;
+      this.map.panBy(0, -this.animOffsetY);
+
+      this.panel_anim =
+        this.pull == 0
+          ? "menu_panel menu_panel-up_anim"
+          : "menu_panel menu_panel-down_anim";
+    }, 100);
+
+    
   },
   methods: {
     pullMenu() {
@@ -206,9 +220,9 @@ export default {
   box-shadow: 3px 3px 8px 0px rgba(192, 196, 204, 0.6);
 }
 
-.item{
-  width:100%;
-  height:80px;
+.item {
+  width: 100%;
+  height: 80px;
 }
 .pull {
   position: absolute;
@@ -242,8 +256,8 @@ export default {
   position: absolute;
   height: 80%;
   width: 80%;
-  top:10%;
-  left:10%;
+  top: 10%;
+  left: 10%;
 }
 .top {
   display: flex;
@@ -264,7 +278,7 @@ export default {
   color: #646566;
 }
 .point_addr {
-  padding-top:5px;
+  padding-top: 5px;
   font-size: 0.27333rem;
   color: #191919;
 }

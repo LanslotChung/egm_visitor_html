@@ -55,6 +55,7 @@ export default {
       // this.$router.push({
       //   path: "/mainPage",
       // });
+      window.moreColor=0;
       window.history.back();
     },
     openLocation() {

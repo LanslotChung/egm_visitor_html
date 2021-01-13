@@ -140,8 +140,8 @@ export default {
     },
     getData() {
       this.indexInfo = window.indexInfo;
-      console.log("Index Info : ------------",this.indexInfo);
       window.projectAssortList=window.indexInfo.projectAssortList;
+      console.log("++++++",window.projectAssortList)
       window.productObj=window.indexInfo.productObj;
     },
     goPage(path) {
