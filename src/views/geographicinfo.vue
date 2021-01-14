@@ -144,11 +144,19 @@ export default {
       if (this.pull == 1) {
         this.map.panBy(0, -this.animOffsetY);
         this.pull = 0;
+        this.panel_anim =
+        this.pull == 0
+          ? "menu_panel menu_panel-up_anim"
+          : "menu_panel menu_panel-down_anim";
         return;
       }
       if (this.pull == 0) {
         this.map.panBy(0, this.animOffsetY);
         this.pull = 1;
+        this.panel_anim =
+        this.pull == 0
+          ? "menu_panel menu_panel-up_anim"
+          : "menu_panel menu_panel-down_anim";
         return;
       }
     },

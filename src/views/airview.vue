@@ -200,7 +200,7 @@
 		height: calc(100vh - 66.5px);
 	}
 	.box-1-0 {
-		height: 100vh;
+		height: calc(100vh - 66.5px);
 		background-color: #fff;
 	}
 	.topbj{

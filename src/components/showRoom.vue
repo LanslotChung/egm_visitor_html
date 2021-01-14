@@ -16,7 +16,7 @@
           height: 100%;
           object-fit: cover;
         "
-        :src="productSingleFamily.url"
+        :src="productSingleFamily.url?productSingleFamily.url:productObj.mainPic"
       />
       <img v-else
         style="

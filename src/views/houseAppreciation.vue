@@ -264,14 +264,14 @@ export default {
   color: #fff;
   background-color: #0072ff;
   padding: 1% 0 2% 0;
-  box-shadow: 3px 3px 3px #948f8f;
+  box-shadow: 3px 3px 3px #aca9a9;
   /* width: 30px;
     height: 57px; */
 }
 .box-1-1-3 {
   position: absolute;
   margin: 0 2px;
-  left: 20%;
+  left: 10%;
   bottom: 30px;
   width: 35%;
   height: 20px;
@@ -281,7 +281,7 @@ export default {
   color: #fff;
   background-color: #00ba42;
   padding: 1% 0 2% 0;
-  box-shadow: -3px 3px 3px #948f8f;
+  box-shadow: -3px 3px 3px #aca9a9;
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
