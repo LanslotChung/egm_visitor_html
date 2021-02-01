@@ -116,7 +116,7 @@ export default {
       } else {
         let that=this;
         this.$copyText(
-          "192.168.3.46:8080/?" +
+          "https://xiecong123.online/dist/index.html?" +
             "projectId=" +
             window.parameters.projectId +
             "&adviserId=" +
